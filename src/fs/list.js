@@ -20,4 +20,5 @@ export const list = async () => {
     }
 };
 
-await list();
+// Uncomment the line below to run `list` function
+// await list();

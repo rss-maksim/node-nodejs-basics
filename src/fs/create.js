@@ -18,4 +18,5 @@ export const create = async () => {
     }
 };
 
-await create();
+// Uncomment the line below to run `create` function
+// await create();

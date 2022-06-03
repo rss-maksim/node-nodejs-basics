@@ -23,4 +23,5 @@ export const rename = async () => {
     }
 };
 
-await rename()
+// Uncomment the line below to run `rename` function
+// await rename();

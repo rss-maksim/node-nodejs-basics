@@ -25,4 +25,5 @@ export const copy = async () => {
     }
 };
 
-await copy();
+// Uncomment the line below to run `copy` function
+// await copy();

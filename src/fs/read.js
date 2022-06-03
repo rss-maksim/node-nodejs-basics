@@ -1,12 +1,13 @@
-import { readFile } from 'node:fs/promises';
+import {readFile} from 'node:fs/promises';
 import url from 'url';
 import path from 'path';
 
 import {checkIfExists} from '../common/index.js';
 
-export const read = async () => {
-    const dirname = url.fileURLToPath(new URL('.', import.meta.url));
-    const filename = path.resolve(dirname, 'files/fileToRead.txt');
+const dirname = url.fileURLToPath(new URL('.', import.meta.url));
+const filenamePath = path.resolve(dirname, 'files/fileToRead.txt');
+
+export const read = async (filename = filenamePath) => {
     const hasFile = await checkIfExists(filename);
 
     if (!hasFile) {
@@ -14,11 +15,8 @@ export const read = async () => {
     }
 
     try {
-        const content = await readFile(filename);
-        console.log(content.toString());
+        return await readFile(filename);
     } catch (error) {
         console.error(error);
     }
 };
-
-await read();

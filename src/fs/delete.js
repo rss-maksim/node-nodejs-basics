@@ -19,4 +19,5 @@ export const remove = async () => {
     }
 };
 
-await remove();
+// Uncomment the line below to run `remove` function
+// await remove();
