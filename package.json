@@ -15,8 +15,9 @@
     "serve": "node dist/server.js",
     "watch-node": "nodemon dist/server.js",
     "start:dev:simple": "npm run watch-ts && npm run watch-node",
+    "start:dev:concurrent": "npx concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
+    "start:dev": "nodemon --watch \"src/**\" --ext \"ts,json\" --ignore \"src/**/*.test.ts\" --exec \"ts-node src/server.ts\"",
     "start:prod": "npm run build-ts && npm run serve",
-    "start:dev": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
     "start:multi": ""
   },
   "repository": {
@@ -46,7 +47,6 @@
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "5.28.0",
     "@typescript-eslint/parser": "5.28.0",
-    "concurrently": "^7.2.2",
     "eslint": "^8.17.0",
     "nodemon": "^2.0.16",
     "prettier": "^2.7.1",
