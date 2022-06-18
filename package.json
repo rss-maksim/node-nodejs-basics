@@ -1,21 +1,56 @@
 {
   "name": "node-nodejs-basics",
   "version": "1.0.0",
-  "description": "This repository is the part of nodejs-assignments https://github.com/AlreadyBored/nodejs-assignments",
-  "type": "module",
+  "description": "This repository is the part of nodejs-assignments",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node fileManager/cli.js -- --username=Maksim"
+    "test": "jest --forceExit --coverage --verbose",
+    "watch-test": "npm run test -- --watchAll",
+    "start:fileManager": "node fileManager/cli.js -- --username=Maksim",
+    "build-ts": "tsc",
+    "build": "npm run build-ts && npm run lint",
+    "debug": "npm run build && npm run watch-debug",
+    "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+    "serve-debug": "nodemon --inspect dist/server.js",
+    "serve": "node dist/server.js",
+    "watch-node": "nodemon dist/server.js",
+    "watch-ts": "tsc -w",
+    "start:prod": "npm run build-ts && npm run serve",
+    "start:dev:concurrent": "npx concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlreadyBored/node-nodejs-basics.git"
+    "url": "git+https://github.com/rss-maksim/node-nodejs-basics"
   },
-  "keywords": ["nodejs", "assignments", "alreadybored"],
-  "author": "alreadybored",
+  "keywords": [
+    "nodejs",
+    "assignments"
+  ],
+  "author": "Maksim",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AlreadyBored/node-nodejs-basics/issues"
+    "url": "https://github.com/rss-maksim/node-nodejs-basics"
   },
-  "homepage": "https://github.com/AlreadyBored/node-nodejs-basics#readme"
+  "homepage": "https://github.com/rss-maksim/node-nodejs-basics#readme",
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/eslint": "7.29.0",
+    "@types/jest": "^28.1.2",
+    "@types/node": "^16.11.41",
+    "@types/uuid": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "5.28.0",
+    "@typescript-eslint/parser": "5.28.0",
+    "eslint": "^8.17.0",
+    "nodemon": "^2.0.16",
+    "prettier": "^2.7.1",
+    "supertest": "6.2.3",
+    "ts-jest": "^28.0.5",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.4",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
+  }
 }
