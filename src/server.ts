@@ -8,7 +8,8 @@ import {
     makeFailureResponse,
     makeSuccessResponse,
     parseBody,
-    validateId, validateUserBody
+    validateId,
+    validateUserBody
 } from './utils';
 import { UsersService } from './db';
 import { User } from './models';
@@ -21,6 +22,7 @@ const requestListener = async (req: IncomingMessage, res: ServerResponse) => {
     const [, prefix, resource, id] = req.url.split('/');
     if (isPrefixInvalid(prefix) || isResourceInvalid(resource, RESOURCES.users)) {
         makeFailureResponse(res, errorResponses.endpointNotExists);
+        return;
     }
 
     try {
@@ -65,10 +67,11 @@ const requestListener = async (req: IncomingMessage, res: ServerResponse) => {
             const user = UsersService.updateUser(id, JSON.parse(body));
             if (user) {
                 makeSuccessResponse(res, user, 200);
+                return;
             } else {
                 makeFailureResponse(res, errorResponses.notFound, 404);
+                return;
             }
-            return;
         } else if (method === Method.DELETE) {
             if (!validateId(id)) {
                 makeFailureResponse(res, errorResponses.invalidId, 400);
@@ -77,17 +80,18 @@ const requestListener = async (req: IncomingMessage, res: ServerResponse) => {
             const success = UsersService.deleteUser(id);
             if (success) {
                 makeSuccessResponse(res, undefined, 204);
+                return;
             } else {
                 makeFailureResponse(res, errorResponses.notFound, 404);
+                return;
             }
-            return;
         }
     } catch {
         makeFailureResponse(res, errorResponses.serverError, 500);
     }
 }
 
-const server = http.createServer(requestListener);
+export const server = http.createServer(requestListener);
 
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`);

@@ -8,5 +8,7 @@
 # Ignore built ts files
 dist/**/*
 
+coverage
+
 # ignore yarn.lock
 yarn.lock
