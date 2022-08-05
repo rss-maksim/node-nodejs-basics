@@ -2,3 +2,13 @@
 /.pnp
 .pnp.js
 /.idea
+*.iml
+.DS_Store
+
+# Ignore built ts files
+dist/**/*
+
+coverage
+
+# ignore yarn.lock
+yarn.lock
